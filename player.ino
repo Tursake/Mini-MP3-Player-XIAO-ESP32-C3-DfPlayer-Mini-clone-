@@ -5,6 +5,7 @@
 #define BUTTON_PIN 3
 #define BUSY_PIN 4
 #define BUTTON_PIN_BITMASK 0x0000000008  // 2^3 = GPIO3
+#define MP3_POWER_PIN D4
 
 RTC_DATA_ATTR int bootCount = 0;
 
@@ -119,6 +120,8 @@ void waitForPlaybackToFinish(unsigned long timeout_ms) {
     }
     delay(50);
   }
+
+  digitalWrite(MP3_POWER_PIN, LOW);
 }
 
 void setup() {
@@ -130,6 +133,9 @@ void setup() {
   pinMode(BUTTON_PIN, INPUT_PULLUP);
   pinMode(BUSY_PIN, INPUT);
 
+  pinMode(MP3_POWER_PIN, OUTPUT);
+  digitalWrite(MP3_POWER_PIN, LOW);
+
   print_wakeup_reason();
   esp_sleep_wakeup_cause_t wakeup_reason = esp_sleep_get_wakeup_cause();
 
@@ -137,9 +143,11 @@ void setup() {
 
   if (wakeup_reason != ESP_SLEEP_WAKEUP_GPIO) {
     Serial.println("Non-GPIO wakeup, waiting longer for DFPlayer startup...");
+    digitalWrite(MP3_POWER_PIN, HIGH); // Power on MP3
     delay(3000);
   } else {
     Serial.println("GPIO wakeup, quick start.");
+    digitalWrite(MP3_POWER_PIN, HIGH); // Power on MP3
     delay(500);
   }
 
