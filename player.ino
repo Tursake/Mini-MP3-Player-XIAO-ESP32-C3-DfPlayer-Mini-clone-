@@ -2,7 +2,7 @@
 
 #define RXD2 20
 #define TXD2 21
-#define BUTTON_PIN 3
+#define BUTTON_PIN 5
 #define BUSY_PIN 4
 #define BUTTON_PIN_BITMASK 0x0000000008  // 2^3 = GPIO3
 #define MP3_POWER_PIN D4
