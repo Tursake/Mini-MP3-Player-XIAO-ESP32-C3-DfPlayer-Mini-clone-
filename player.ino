@@ -1,10 +1,10 @@
 #include <Arduino.h>
 
-#define RXD2 20
-#define TXD2 21
+#define RXD2 8
+#define TXD2 7
 #define BUTTON_PIN 5
 #define BUSY_PIN 4
-#define BUTTON_PIN_BITMASK 0x0000000008  // 2^3 = GPIO3
+#define BUTTON_PIN_BITMASK 0x0000000020  // 2^5 = GPIO5
 #define MP3_POWER_PIN D4
 
 RTC_DATA_ATTR int bootCount = 0;
